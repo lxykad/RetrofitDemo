@@ -1,9 +1,13 @@
 package com.lxy.retrofit;
 
+import android.content.Intent;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
-import com.google.gson.Gson;
+import com.lxy.retrofit.rx.RxActivity;
 
 import java.io.IOException;
 
@@ -23,13 +27,18 @@ import retrofit2.http.Query;
 public class MainActivity extends AppCompatActivity {
 
     private String mHomeUrl = "http://140.207.75.158/article/list?page=0";
+    private ViewDataBinding mBinding = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        //setContentView(R.layout.activity_main);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        //mBinding.setVariable(BR.presenter,new MainActivity().new Presenter());
+        mBinding.setVariable(BR.presenter, new Presenter());
 
         loadHomeData(2);
+
     }
 
     public interface HomeInterface {
@@ -60,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
 //                HomeBean homeBean = gson.fromJson(response.body().toString(), HomeBean.class);
 //                int size = homeBean.results.size();
 //                System.out.println("111111111====desc==="+homeBean.results.get(0).desc);
-                System.out.println("111111111=======success====="+response.body().toString());
+                System.out.println("111111111=======success=====" + response.body().toString());
             }
 
             @Override
@@ -75,10 +84,10 @@ public class MainActivity extends AppCompatActivity {
     /**
      * addQueryParameter就是添加请求参数的具体代码，这种方式比较适用于所有的请求都需要添加的参数，
      * 一般现在的网络请求都会添加token作为用户标识，那么这种方式就比较适合。
-     *创建完成自定义的Interceptor后，还需要在Retrofit创建client处完成添加 addInterceptor(new CustomInterceptor())
+     * 创建完成自定义的Interceptor后，还需要在Retrofit创建client处完成添加 addInterceptor(new CustomInterceptor())
      */
     //第二种添加参数的方式
-    public class MyInterceptor implements Interceptor{
+    public class MyInterceptor implements Interceptor {
 
         @Override
         public okhttp3.Response intercept(Chain chain) throws IOException {
@@ -94,4 +103,13 @@ public class MainActivity extends AppCompatActivity {
             return chain.proceed(request);
         }
     }
+
+    public class Presenter {
+
+        public void onClick(View view) {
+            Intent intent = new Intent(MainActivity.this, RxActivity.class);
+            startActivity(intent);
+        }
+    }
+
 }
