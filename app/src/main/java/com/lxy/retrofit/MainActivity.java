@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.lxy.retrofit.binding.BindingActivity;
+import com.lxy.retrofit.databinding.ActivityMainBinding;
 import com.lxy.retrofit.rx.RxActivity;
 
 import java.io.IOException;
@@ -27,17 +29,22 @@ import retrofit2.http.Query;
 public class MainActivity extends AppCompatActivity {
 
     private String mHomeUrl = "http://140.207.75.158/article/list?page=0";
-    private ViewDataBinding mBinding = null;
+    private ActivityMainBinding mBinding = null;
+    private TestBean mBean= new TestBean("name");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_main);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        mBinding.setTestbean(mBean);
+        mBinding.setPresenter(new Presenter());
         //mBinding.setVariable(BR.presenter,new MainActivity().new Presenter());
-        mBinding.setVariable(BR.presenter, new Presenter());
+        //mBinding.setVariable(com.lxy.retrofit.BR.presenter, new Presenter());
+       // mBinding.setVariable(com.lxy.retrofit.BR.testbean,mBean);
 
-        loadHomeData(2);
+
+       // loadHomeData(2);
 
     }
 
@@ -110,6 +117,19 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, RxActivity.class);
             startActivity(intent);
         }
+
+        public void onClickBinding(View view) {
+            Intent intent = new Intent(MainActivity.this, BindingActivity.class);
+            startActivity(intent);
+        }
+
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            //mBean.bean_name = s.toString();
+            mBean.setName(s.toString());
+            System.out.println("0000000======"+mBean.bean_name);
+
+        }
+
     }
 
 }

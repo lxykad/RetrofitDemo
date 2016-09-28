@@ -8,6 +8,7 @@
             name="presenter"
             type="com.lxy.retrofit.rx.RxActivity.Presenter" />
 
+
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -29,9 +30,12 @@
             android:text="R" />
 
         <TextView
+            android:textSize="18sp"
+            android:textColor="#000"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="" />
+            android:text="000" />
 
     </LinearLayout>
 

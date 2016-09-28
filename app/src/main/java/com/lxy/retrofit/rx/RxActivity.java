@@ -5,10 +5,13 @@ import android.databinding.ViewDataBinding;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import com.lxy.retrofit.BR;
 import com.lxy.retrofit.R;
+
+import rx.Observable;
+import rx.Subscriber;
+
 
 public class RxActivity extends AppCompatActivity {
 
@@ -33,7 +36,18 @@ public class RxActivity extends AppCompatActivity {
 
         public void onClick(View view){
             //Observable释放Hello，World字符串，接着停止执行：
-            
+            Observable.OnSubscribe onSubscribe = new Observable.OnSubscribe<String>(){
+                @Override
+                public void call(Subscriber<? super String> subscriber) {
+                    subscriber.onNext("nihao");
+                    subscriber.onCompleted();
+                }
+            };
+            Observable observable = Observable.create(onSubscribe);
         }
     }
+
+
 }
+
+

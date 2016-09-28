@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".rx.RxActivity" />
-        <activity android:name=".pager.RxPagerActivity"></activity>
+        <activity android:name=".pager.RxPagerActivity" />
+        <activity android:name=".binding.BindingActivity"></activity>
     </application>
 
 </manifest>
