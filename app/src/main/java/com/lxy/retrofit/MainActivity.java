@@ -29,7 +29,7 @@ import retrofit2.http.Query;
 public class MainActivity extends AppCompatActivity {
 
     private String mHomeUrl = "http://140.207.75.158/article/list?page=0";
-    private ActivityMainBinding mBinding = null;
+    private ActivityMainBinding mBinding;
     private TestBean mBean= new TestBean("name");
 
     @Override
