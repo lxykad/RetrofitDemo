@@ -84,6 +84,12 @@ public class RxActivity extends AppCompatActivity {
         //封装后
         Subscriber subscriber = new Subscriber<RxBean>() {
             @Override
+            public void onStart() {
+                //super.onStart();
+                System.out.println("0000000======onStart");
+            }
+
+            @Override
             public void onCompleted() {
                 System.out.println("0000000======onCompleted");
             }
@@ -100,6 +106,9 @@ public class RxActivity extends AppCompatActivity {
         };
 
         HttpHelper.getInstance().loadData(subscriber);
+
+        //取消请求,Subscriber一旦调用了unsubscribe方法之后，就没有用了,每次发送请求都要创建新的Subscriber对象
+        //subscriber.unsubscribe();
 
     }
 

@@ -23,19 +23,6 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         tools:context="com.lxy.retrofit.rx.RxActivity">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{presenter.onClick}"
-            android:text="R" />
-
-        <TextView
-            android:textSize="18sp"
-            android:textColor="#000"
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="000" />
 
     </LinearLayout>
 
