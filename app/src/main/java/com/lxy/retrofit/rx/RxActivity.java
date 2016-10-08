@@ -6,7 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.google.common.eventbus.Subscribe;
 import com.lxy.retrofit.BR;
+import com.lxy.retrofit.HttpHelper;
 import com.lxy.retrofit.R;
 
 import retrofit2.Call;
@@ -34,12 +36,12 @@ public class RxActivity extends AppCompatActivity {
         mBinding.setVariable(BR.presenter, new Presenter());
 
 
-        loadData();
+        loadData("20", "1");
     }
 
     public interface RxService {
         @GET("10/1")
-        Observable<RxBean> loadData();
+        Observable<RxBean> loadData(@Query("count") String count, @Query("page") String page);
 
     }
 
@@ -51,33 +53,53 @@ public class RxActivity extends AppCompatActivity {
         }
     }
 
-    public void loadData() {
+    public void loadData(String count, String page) {
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(mBaseUrl)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .build();
-        RxService rxService = retrofit.create(RxService.class);
-        rxService.loadData()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<RxBean>() {
-                    @Override
-                    public void onCompleted() {
-                        System.out.println("0000000======onCompleted");
-                    }
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl(mBaseUrl)
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+//                .build();
+//        RxService rxService = retrofit.create(RxService.class);
+//        rxService.loadData(count,page)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Subscriber<RxBean>() {
+//                    @Override
+//                    public void onCompleted() {
+//                        System.out.println("0000000======onCompleted");
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        System.out.println("0000000======onError==="+e.toString());
+//                    }
+//
+//                    @Override
+//                    public void onNext(RxBean bean) {
+//                        System.out.println("0000000======onNext==="+bean.getResults().size());
+//                    }
+//                });
 
-                    @Override
-                    public void onError(Throwable e) {
-                        System.out.println("0000000======onError==="+e.toString());
-                    }
+        //封装后
+        Subscriber subscriber = new Subscriber<RxBean>() {
+            @Override
+            public void onCompleted() {
+                System.out.println("0000000======onCompleted");
+            }
 
-                    @Override
-                    public void onNext(RxBean bean) {
-                        System.out.println("0000000======onNext==="+bean.getResults().size());
-                    }
-                });
+            @Override
+            public void onError(Throwable e) {
+                System.out.println("0000000======onError==="+e.toString());
+            }
+
+            @Override
+            public void onNext(RxBean bean) {
+                System.out.println("0000000======onNext==="+bean.getResults().size());
+            }
+        };
+
+        HttpHelper.getInstance().loadData(subscriber);
 
     }
 
