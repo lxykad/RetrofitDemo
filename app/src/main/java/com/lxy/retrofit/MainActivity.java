@@ -80,8 +80,8 @@ public class MainActivity extends AppCompatActivity {
             //销毁时触发，一般在这里将画图的线程停止、释放。
             @Override
             public void surfaceDestroyed(SurfaceHolder holder) {
-                mMediaPlayer.stop();
-                mMediaPlayer.release();
+                //mMediaPlayer.stop();
+               // mMediaPlayer.release();
             }
         });
     }
