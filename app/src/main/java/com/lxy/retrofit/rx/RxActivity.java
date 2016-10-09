@@ -18,6 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 import rx.Observable;
+import rx.Observer;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -54,6 +55,8 @@ public class RxActivity extends AppCompatActivity {
     }
 
     public void loadData(String count, String page) {
+
+        //Observable.zip()
 
 //        Retrofit retrofit = new Retrofit.Builder()
 //                .baseUrl(mBaseUrl)

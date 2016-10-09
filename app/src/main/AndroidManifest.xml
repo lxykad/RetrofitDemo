@@ -20,7 +20,8 @@
         </activity>
         <activity android:name=".rx.RxActivity" />
         <activity android:name=".pager.RxPagerActivity" />
-        <activity android:name=".binding.BindingActivity"></activity>
+        <activity android:name=".binding.BindingActivity" />
+        <activity android:name=".img.ImgActivity"></activity>
     </application>
 
 </manifest>
