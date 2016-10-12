@@ -21,7 +21,8 @@
         <activity android:name=".rx.RxActivity" />
         <activity android:name=".pager.RxPagerActivity" />
         <activity android:name=".binding.BindingActivity" />
-        <activity android:name=".img.ImgActivity"></activity>
+        <activity android:name=".img.ImgActivity" />
+        <activity android:name=".rx.RxOperation.OperationTestActivity"></activity>
     </application>
 
 </manifest>

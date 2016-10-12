@@ -15,6 +15,7 @@ import com.lxy.retrofit.binding.BindingActivity;
 import com.lxy.retrofit.databinding.ActivityMainBinding;
 import com.lxy.retrofit.img.ImgActivity;
 import com.lxy.retrofit.rx.RxActivity;
+import com.lxy.retrofit.rx.RxOperation.OperationTestActivity;
 
 import java.io.IOException;
 
@@ -202,6 +203,10 @@ public class MainActivity extends AppCompatActivity {
             mBean.setName(s.toString());
             System.out.println("0000000======" + mBean.bean_name);
 
+        }
+
+        public void toRxTest(View view){
+            startActivity(new Intent(MainActivity.this, OperationTestActivity.class));
         }
 
     }
