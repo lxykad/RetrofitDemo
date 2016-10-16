@@ -11,12 +11,18 @@ import com.lxy.retrofit.databinding.ActivityOperationTestBinding;
 
 import rx.Observable;
 import rx.Observer;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 public class OperationTestActivity extends AppCompatActivity {
 
     ActivityOperationTestBinding mBinding;
+    Observable mObservable;
 
-    private String[] strs = {"hello","world","hehe"};
+    private String[] strs = {"hello", "world", "hehe"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,32 +32,52 @@ public class OperationTestActivity extends AppCompatActivity {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_operation_test);
         mBinding.setPresenter(new Presenter());
 
+        String mainName = Thread.currentThread().getName();
+        System.out.println("5555555===mainName===" + mainName);
+
     }
 
 
     public class Presenter {
 
+        //from操作符
         public void clickFrom(View view) {
-            Observable<String> from = Observable.from(strs);
-            Observer observer = new Observer<String>() {
-                @Override
-                public void onCompleted() {
 
-                }
+            Observable.from(strs)
+                    .subscribeOn(Schedulers.io())//指定 subscribe() 发生在 IO 线程
+                    .observeOn(AndroidSchedulers.mainThread())//指定observe 回调在主线程
+                    .map(new Func1<String, String>() {//map转换，把string转换为string并返回
 
-                @Override
-                public void onError(Throwable e) {
+                        @Override
+                        public String call(String s) {
+                            return s + ": map";
+                        }
+                    })
+                    .subscribe(new Subscriber<String>() {
+                        @Override
+                        public void onStart() {
+                            //super.onStart();
+                            String nameStart = Thread.currentThread().getName();
+                            System.out.println("5555555===nameStart===" + nameStart);
+                        }
 
-                }
+                        @Override
+                        public void onCompleted() {
 
-                @Override
-                public void onNext(String s) {
-                    System.out.println("33333333======"+s);
-                }
+                        }
 
+                        @Override
+                        public void onError(Throwable e) {
 
-            };
-            from.subscribe(observer);
+                        }
+
+                        @Override
+                        public void onNext(String s) {
+                            String nameNext = Thread.currentThread().getName();
+                            System.out.println("5555555===nameNext===" + nameNext);
+                            System.out.println("5555555======" + s);
+                        }
+                    });
 
         }
 
@@ -60,6 +86,14 @@ public class OperationTestActivity extends AppCompatActivity {
         }
 
         public void clickCreate(View view) {
+
+            Action1<String> action1 = new Action1<String>() {
+                @Override
+                public void call(String s) {
+                    System.out.println("5555555====action1==" + s);
+                }
+            };
+            Observable.from(strs).subscribe(action1);
 
         }
 
@@ -114,5 +148,12 @@ public class OperationTestActivity extends AppCompatActivity {
         public void clickZip(View view) {
 
         }
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
     }
 }

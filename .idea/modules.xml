@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/RetrofitDemo.iml" filepath="$PROJECT_DIR$/RetrofitDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/retrofit.iml" filepath="$PROJECT_DIR$/retrofit.iml" />
       <module fileurl="file://$PROJECT_DIR$/testjava/testjava.iml" filepath="$PROJECT_DIR$/testjava/testjava.iml" />
     </modules>
   </component>
